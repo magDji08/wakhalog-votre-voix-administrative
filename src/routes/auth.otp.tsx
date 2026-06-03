@@ -67,7 +67,7 @@ function OtpPage() {
 
   return (
     <div className="relative flex min-h-screen items-center justify-center hero-bg p-6">
-      <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden />
+      <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden></div>
       <div className="relative w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center justify-center gap-2">
           <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary to-accent">

@@ -41,7 +41,7 @@ function LoginPage() {
   return (
     <div className="grid min-h-screen bg-background lg:grid-cols-2">
       <div className="relative hidden overflow-hidden hero-bg lg:flex lg:flex-col lg:justify-between lg:p-12">
-        <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden></div>
         <Link to="/" className="relative flex items-center gap-2">
           <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary to-accent">
             <Mic className="h-5 w-5 text-primary-foreground" />

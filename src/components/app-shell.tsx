@@ -105,7 +105,7 @@ export function AppShell({ children, title, subtitle, actions }: {
 
       {/* Main */}
       <main className="relative flex-1 overflow-x-hidden hero-bg">
-        <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" aria-hidden></div>
         <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur">
           <div className="flex items-center justify-between px-6 py-5">
             <div>
