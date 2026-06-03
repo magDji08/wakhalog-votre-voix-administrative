@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { Mic, ShieldCheck } from "lucide-react";
+import { useAuth, type Role } from "@/lib/auth";
 
 export const Route = createFileRoute("/auth/otp")({
   head: () => ({
@@ -9,8 +10,15 @@ export const Route = createFileRoute("/auth/otp")({
   component: OtpPage,
 });
 
+const ROLE_NAMES: Record<Role, string> = {
+  citizen: "Citoyen Démo",
+  consultant: "Consultant Démo",
+  super_admin: "Admin Démo",
+};
+
 function OtpPage() {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [digits, setDigits] = useState<string[]>(Array(6).fill(""));
   const [error, setError] = useState("");
   const [seconds, setSeconds] = useState(300);
@@ -19,6 +27,9 @@ function OtpPage() {
   const phone = typeof window !== "undefined"
     ? sessionStorage.getItem("wakhalog_pending_phone") ?? ""
     : "";
+  const role = (typeof window !== "undefined"
+    ? (sessionStorage.getItem("wakhalog_pending_role") as Role | null)
+    : null) ?? "citizen";
 
   useEffect(() => {
     if (seconds <= 0) return;
@@ -45,8 +56,9 @@ function OtpPage() {
       setError("Veuillez saisir les 6 chiffres.");
       return;
     }
-    // Demo: any 6 digits → success
-    sessionStorage.setItem("wakhalog_authed", "1");
+    login({ phone: phone || "+221 00 000 00 00", role, name: ROLE_NAMES[role] });
+    sessionStorage.removeItem("wakhalog_pending_phone");
+    sessionStorage.removeItem("wakhalog_pending_role");
     navigate({ to: "/dashboard" });
   };
 
