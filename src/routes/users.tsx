@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { RoleGuard } from "@/components/role-guard";
+import { RoleGuard, Can } from "@/components/role-guard";
 import { UserPlus, Shield, User, Briefcase } from "lucide-react";
 
 export const Route = createFileRoute("/users")({
