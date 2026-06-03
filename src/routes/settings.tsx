@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
-import { RoleGuard } from "@/components/role-guard";
+import { RoleGuard, Can } from "@/components/role-guard";
 import { Save } from "lucide-react";
 
 export const Route = createFileRoute("/settings")({
@@ -22,23 +22,32 @@ function SettingsPage() {
           <Field label="Langue par défaut" value="Wolof" />
         </Card>
 
-        <Card title="IA" desc="Clés API et paramètres des modèles">
-          <Field label="Clé Gemini" value="AIza••••••••••••••" type="password" />
-          <Field label="URL Ollama" value="http://localhost:11434" />
-          <Field label="Température LLM" value="0.3" />
-        </Card>
+        <Can
+          permission="settings:edit"
+          fallback={
+            <div className="rounded-2xl border border-dashed border-border bg-card/40 p-6 text-sm text-muted-foreground">
+              Les paramètres IA et Sécurité sont réservés aux Super Administrateurs.
+            </div>
+          }
+        >
+          <Card title="IA" desc="Clés API et paramètres des modèles">
+            <Field label="Clé Gemini" value="AIza••••••••••••••" type="password" />
+            <Field label="URL Ollama" value="http://localhost:11434" />
+            <Field label="Température LLM" value="0.3" />
+          </Card>
 
-        <Card title="Sécurité" desc="Authentification et sessions">
-          <Toggle label="OTP par SMS" desc="Code à 6 chiffres, expire en 5 min" enabled />
-          <Toggle label="Refresh token" desc="Sessions de 30 jours" enabled />
-          <Field label="Tentatives OTP max" value="3" />
-        </Card>
+          <Card title="Sécurité" desc="Authentification et sessions">
+            <Toggle label="OTP par SMS" desc="Code à 6 chiffres, expire en 5 min" enabled />
+            <Toggle label="Refresh token" desc="Sessions de 30 jours" enabled />
+            <Field label="Tentatives OTP max" value="3" />
+          </Card>
 
-        <div className="flex justify-end">
-          <button className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90">
-            <Save className="h-4 w-4" /> Enregistrer
-          </button>
-        </div>
+          <div className="flex justify-end">
+            <button className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 font-medium text-primary-foreground hover:opacity-90">
+              <Save className="h-4 w-4" /> Enregistrer
+            </button>
+          </div>
+        </Can>
       </div>
     </AppShell>
   );
