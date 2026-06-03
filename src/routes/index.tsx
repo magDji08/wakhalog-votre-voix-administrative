@@ -73,9 +73,6 @@ function Landing() {
       {/* Features */}
       <section className="mx-auto max-w-6xl px-6 pb-24">
         <div className="grid gap-6 md:grid-cols-3">
-
-        {/* Features */}
-        <div className="mt-24 grid gap-6 md:grid-cols-3">
           {[
             {
               icon: Languages,
