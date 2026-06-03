@@ -72,7 +72,7 @@ function LoginPage() {
             <span className="font-display text-xl font-bold">Wakhalog</span>
           </Link>
 
-          <h1 className="text-3xl font-bold">Bienvenue</h1>
+          <h1 className="text-3xl font-bold text-gradient">Bienvenue</h1>
           <p className="mt-2 text-muted-foreground">
             Connectez-vous avec votre numéro de téléphone. Un code OTP vous sera envoyé par SMS.
           </p>
