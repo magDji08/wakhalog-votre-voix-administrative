@@ -46,7 +46,7 @@ function Dashboard() {
         <div className="rounded-2xl border border-border bg-card p-6 lg:col-span-2">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="font-display text-lg font-bold">Activité quotidienne</h2>
+              <h2 className="font-display text-lg font-bold text-gradient">Activité quotidienne</h2>
               <p className="text-sm text-muted-foreground">Conversations traitées sur 7 jours</p>
             </div>
             <span className="inline-flex items-center gap-1 rounded-full bg-accent/15 px-3 py-1 text-xs font-medium text-accent">
@@ -67,7 +67,7 @@ function Dashboard() {
         </div>
 
         <div className="rounded-2xl border border-border bg-card p-6">
-          <h2 className="font-display text-lg font-bold">Répartition langues</h2>
+          <h2 className="font-display text-lg font-bold text-gradient">Répartition langues</h2>
           <p className="text-sm text-muted-foreground">Sur les 30 derniers jours</p>
           <div className="mt-6 space-y-4">
             {[
@@ -91,7 +91,7 @@ function Dashboard() {
 
       <div className="mt-6 rounded-2xl border border-border bg-card">
         <div className="border-b border-border p-6">
-          <h2 className="font-display text-lg font-bold">Dernières conversations</h2>
+          <h2 className="font-display text-lg font-bold text-gradient">Dernières conversations</h2>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">

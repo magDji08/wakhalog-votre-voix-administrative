@@ -104,17 +104,18 @@ export function AppShell({ children, title, subtitle, actions }: {
       </aside>
 
       {/* Main */}
-      <main className="flex-1 overflow-x-hidden">
-        <header className="sticky top-0 z-30 border-b border-border bg-background/80 backdrop-blur">
+      <main className="relative flex-1 overflow-x-hidden hero-bg">
+        <div className="pointer-events-none absolute inset-0 grid-bg opacity-60" aria-hidden></div>
+        <header className="sticky top-0 z-30 border-b border-border bg-background/70 backdrop-blur">
           <div className="flex items-center justify-between px-6 py-5">
             <div>
-              <h1 className="font-display text-2xl font-bold">{title}</h1>
+              <h1 className="font-display text-2xl font-bold text-gradient">{title}</h1>
               {subtitle && <p className="text-sm text-muted-foreground">{subtitle}</p>}
             </div>
             {actions}
           </div>
         </header>
-        <div className="p-6">{children}</div>
+        <div className="relative p-6">{children}</div>
       </main>
     </div>
   );

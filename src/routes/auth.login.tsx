@@ -40,9 +40,10 @@ function LoginPage() {
 
   return (
     <div className="grid min-h-screen bg-background lg:grid-cols-2">
-      <div className="relative hidden overflow-hidden bg-gradient-to-br from-primary/20 via-background to-secondary/10 lg:flex lg:flex-col lg:justify-between lg:p-12">
-        <Link to="/" className="flex items-center gap-2">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary to-secondary">
+      <div className="relative hidden overflow-hidden hero-bg lg:flex lg:flex-col lg:justify-between lg:p-12">
+        <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden></div>
+        <Link to="/" className="relative flex items-center gap-2">
+          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary to-accent">
             <Mic className="h-5 w-5 text-primary-foreground" />
           </div>
           <span className="font-display text-2xl font-bold">Wakhalog</span>
@@ -50,16 +51,16 @@ function LoginPage() {
 
         <div className="relative">
           <div className="absolute -left-10 -top-10 h-72 w-72 rounded-full bg-primary/20 blur-3xl" />
-          <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-secondary/20 blur-3xl" />
+          <div className="absolute right-0 bottom-0 h-72 w-72 rounded-full bg-accent/20 blur-3xl" />
           <blockquote className="relative max-w-md font-display text-3xl font-semibold leading-snug">
-            "Wax ak sa administration ci sa làkk."
+            <span className="text-gradient">"Wax ak sa administration ci sa làkk."</span>
           </blockquote>
           <p className="relative mt-4 text-muted-foreground">
             Parlez à votre administration dans votre langue.
           </p>
         </div>
 
-        <p className="text-xs text-muted-foreground">© 2026 Wakhalog · VoiceBot Wolof–Français</p>
+        <p className="relative text-xs text-muted-foreground">© 2026 Wakhalog · VoiceBot Wolof–Français</p>
       </div>
 
       <div className="flex items-center justify-center p-6">
@@ -71,7 +72,7 @@ function LoginPage() {
             <span className="font-display text-xl font-bold">Wakhalog</span>
           </Link>
 
-          <h1 className="text-3xl font-bold">Bienvenue</h1>
+          <h1 className="text-3xl font-bold text-gradient">Bienvenue</h1>
           <p className="mt-2 text-muted-foreground">
             Connectez-vous avec votre numéro de téléphone. Un code OTP vous sera envoyé par SMS.
           </p>
