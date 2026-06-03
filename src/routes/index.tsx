@@ -38,7 +38,7 @@ function Landing() {
 
       {/* Hero */}
       <section className="relative overflow-hidden hero-bg">
-        <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden />
+        <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden></div>
         <div className="relative mx-auto max-w-6xl px-6 py-24 text-center">
           <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card/50 px-4 py-1.5 text-xs text-muted-foreground backdrop-blur">
             <Sparkles className="h-3.5 w-3.5 text-accent" />
