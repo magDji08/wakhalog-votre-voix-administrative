@@ -21,7 +21,7 @@ function AnalyticsPage() {
         <section>
           <div className="mb-4 flex items-center gap-2">
             <Mic className="h-5 w-5 text-primary" />
-            <h2 className="font-display text-xl font-bold">ASR — Whisper Wolof</h2>
+            <h2 className="font-display text-xl font-bold text-gradient">ASR — Whisper Wolof</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <StatCard label="WER moyen" value="19.4%" delta="-2.1pts" icon={TrendingDown} />
@@ -51,7 +51,7 @@ function AnalyticsPage() {
         <section>
           <div className="mb-4 flex items-center gap-2">
             <Brain className="h-5 w-5 text-secondary" />
-            <h2 className="font-display text-xl font-bold">NLU — Gemini</h2>
+            <h2 className="font-display text-xl font-bold text-gradient">NLU — Gemini</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <StatCard label="F1 Score" value="0.89" delta="+0.04" icon={Activity} />
@@ -64,7 +64,7 @@ function AnalyticsPage() {
         <section>
           <div className="mb-4 flex items-center gap-2">
             <Volume2 className="h-5 w-5 text-accent" />
-            <h2 className="font-display text-xl font-bold">TTS — SpeechT5 Wolof</h2>
+            <h2 className="font-display text-xl font-bold text-gradient">TTS — SpeechT5 Wolof</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             <StatCard label="Temps génération" value="1.1s" delta="par 100 caractères" icon={Clock} />

@@ -56,7 +56,7 @@ function SettingsPage() {
 function Card({ title, desc, children }: { title: string; desc: string; children: React.ReactNode }) {
   return (
     <div className="rounded-2xl border border-border bg-card p-6">
-      <h2 className="font-display text-lg font-bold">{title}</h2>
+      <h2 className="font-display text-lg font-bold text-gradient">{title}</h2>
       <p className="text-sm text-muted-foreground">{desc}</p>
       <div className="mt-5 space-y-4">{children}</div>
     </div>

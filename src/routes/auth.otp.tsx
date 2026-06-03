@@ -66,20 +66,21 @@ function OtpPage() {
   const ss = String(seconds % 60).padStart(2, "0");
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background p-6">
-      <div className="w-full max-w-md">
+    <div className="relative flex min-h-screen items-center justify-center hero-bg p-6">
+      <div className="pointer-events-none absolute inset-0 grid-bg" aria-hidden />
+      <div className="relative w-full max-w-md">
         <Link to="/" className="mb-8 flex items-center justify-center gap-2">
-          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary to-secondary">
+          <div className="grid h-10 w-10 place-items-center rounded-xl bg-gradient-to-br from-primary to-accent">
             <Mic className="h-5 w-5 text-primary-foreground" />
           </div>
           <span className="font-display text-2xl font-bold">Wakhalog</span>
         </Link>
 
-        <div className="rounded-2xl border border-border bg-card p-8 shadow-[var(--shadow-card)]">
+        <div className="rounded-2xl border border-border bg-card/80 p-8 shadow-[var(--shadow-card)] backdrop-blur">
           <div className="mx-auto grid h-12 w-12 place-items-center rounded-full bg-primary/10 text-primary">
             <ShieldCheck className="h-6 w-6" />
           </div>
-          <h1 className="mt-4 text-center text-2xl font-bold">Vérification</h1>
+          <h1 className="mt-4 text-center text-2xl font-bold text-gradient">Vérification</h1>
           <p className="mt-2 text-center text-sm text-muted-foreground">
             Code envoyé au <span className="text-foreground">{phone || "votre numéro"}</span>
           </p>
