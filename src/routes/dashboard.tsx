@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { StatCard } from "@/components/stat-card";
 import { Users, MessagesSquare, Mic, Clock, TrendingUp } from "lucide-react";
 
 export const Route = createFileRoute("/dashboard")({
   head: () => ({ meta: [{ title: "Tableau de bord · Wakhalog" }] }),
-  component: Dashboard,
+  component: () => (
+    <RoleGuard permission="page:dashboard">
+      <Dashboard />
+    </RoleGuard>
+  ),
 });
 
 const daily = [

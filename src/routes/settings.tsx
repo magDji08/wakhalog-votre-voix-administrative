@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { Save } from "lucide-react";
 
 export const Route = createFileRoute("/settings")({
   head: () => ({ meta: [{ title: "Paramètres · Wakhalog" }] }),
-  component: SettingsPage,
+  component: () => (
+    <RoleGuard permission="page:settings">
+      <SettingsPage />
+    </RoleGuard>
+  ),
 });
 
 function SettingsPage() {

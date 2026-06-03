@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { Search, Play, Filter } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/conversations")({
   head: () => ({ meta: [{ title: "Conversations · Wakhalog" }] }),
-  component: ConversationsPage,
+  component: () => (
+    <RoleGuard permission="page:conversations">
+      <ConversationsPage />
+    </RoleGuard>
+  ),
 });
 
 const CONVERSATIONS = [

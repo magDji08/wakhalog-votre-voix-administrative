@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { UserPlus, Shield, User, Briefcase } from "lucide-react";
 
 export const Route = createFileRoute("/users")({
   head: () => ({ meta: [{ title: "Utilisateurs · Wakhalog" }] }),
-  component: UsersPage,
+  component: () => (
+    <RoleGuard permission="page:users">
+      <UsersPage />
+    </RoleGuard>
+  ),
 });
 
 const USERS = [

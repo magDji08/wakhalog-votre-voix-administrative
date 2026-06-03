@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { Activity, Clock, TrendingDown, Mic, Brain, Volume2 } from "lucide-react";
 import { StatCard } from "@/components/stat-card";
 
 export const Route = createFileRoute("/analytics")({
   head: () => ({ meta: [{ title: "Statistiques IA · Wakhalog" }] }),
-  component: AnalyticsPage,
+  component: () => (
+    <RoleGuard permission="page:analytics">
+      <AnalyticsPage />
+    </RoleGuard>
+  ),
 });
 
 function AnalyticsPage() {
