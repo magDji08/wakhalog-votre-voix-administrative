@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard, Can } from "@/components/role-guard";
 import { UserPlus, Shield, User, Briefcase } from "lucide-react";
 
 export const Route = createFileRoute("/users")({
   head: () => ({ meta: [{ title: "Utilisateurs · Wakhalog" }] }),
-  component: UsersPage,
+  component: () => (
+    <RoleGuard permission="page:users">
+      <UsersPage />
+    </RoleGuard>
+  ),
 });
 
 const USERS = [
@@ -27,9 +32,11 @@ function UsersPage() {
       title="Utilisateurs"
       subtitle="Citoyens, consultants administratifs et super-admins"
       actions={
-        <button className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
-          <UserPlus className="h-4 w-4" /> Inviter
-        </button>
+        <Can permission="users:invite">
+          <button className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90">
+            <UserPlus className="h-4 w-4" /> Inviter
+          </button>
+        </Can>
       }
     >
       <div className="mb-6 grid gap-4 md:grid-cols-3">

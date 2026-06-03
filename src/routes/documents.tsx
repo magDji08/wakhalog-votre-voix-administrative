@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { FileText, Download, AlertTriangle } from "lucide-react";
 
 export const Route = createFileRoute("/documents")({
   head: () => ({ meta: [{ title: "Documents simulés · Wakhalog" }] }),
-  component: DocsPage,
+  component: () => (
+    <RoleGuard permission="page:documents">
+      <DocsPage />
+    </RoleGuard>
+  ),
 });
 
 const DOCS = [

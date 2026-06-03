@@ -1,11 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { Plus, FileUp, Edit3, Archive, ExternalLink } from "lucide-react";
 import { useState } from "react";
 
 export const Route = createFileRoute("/knowledge")({
   head: () => ({ meta: [{ title: "Base de connaissances · Wakhalog" }] }),
-  component: KnowledgePage,
+  component: () => (
+    <RoleGuard permission="page:knowledge">
+      <KnowledgePage />
+    </RoleGuard>
+  ),
 });
 
 const CATEGORIES = [

@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { Target, TrendingUp, AlertCircle } from "lucide-react";
 
 export const Route = createFileRoute("/intents")({
   head: () => ({ meta: [{ title: "Intentions · Wakhalog" }] }),
-  component: IntentsPage,
+  component: () => (
+    <RoleGuard permission="page:intents">
+      <IntentsPage />
+    </RoleGuard>
+  ),
 });
 
 const INTENTS = [

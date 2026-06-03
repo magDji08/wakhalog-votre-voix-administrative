@@ -1,10 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { AppShell } from "@/components/app-shell";
+import { RoleGuard } from "@/components/role-guard";
 import { Mic, Brain, Volume2, ExternalLink, Cpu } from "lucide-react";
 
 export const Route = createFileRoute("/models")({
   head: () => ({ meta: [{ title: "Modèles IA · Wakhalog" }] }),
-  component: ModelsPage,
+  component: () => (
+    <RoleGuard permission="page:models">
+      <ModelsPage />
+    </RoleGuard>
+  ),
 });
 
 const MODELS = [
