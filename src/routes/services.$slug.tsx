@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Mic,
   ArrowLeft,
@@ -21,7 +21,11 @@ import {
   Home as HomeIcon,
   Plane,
   FileText,
+  Star,
 } from "lucide-react";
+import { isFavorite, toggleFavorite, recordVisit } from "@/lib/citizen-store";
+
+
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -247,7 +251,19 @@ function ProcedurePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [chat, setChat] = useState<{ role: "user" | "bot"; text: string }[]>([]);
   const [input, setInput] = useState("");
+  const [fav, setFav] = useState(false);
   const utterRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  useEffect(() => {
+    setFav(isFavorite(proc.slug));
+    recordVisit({ slug: proc.slug, title: proc.title, category: proc.category });
+  }, [proc.slug]);
+
+  const onToggleFav = () => {
+    const now = toggleFavorite({ slug: proc.slug, title: proc.title, category: proc.category });
+    setFav(now);
+  };
+
 
   const toggleAudio = () => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
