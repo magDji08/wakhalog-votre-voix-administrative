@@ -249,12 +249,10 @@ function ChatPage() {
     }
   };
 
+  const { speak: ttsSpeak } = useTTS();
   const speak = (text: string) => {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    const u = new SpeechSynthesisUtterance(text);
-    u.lang = lang === "wo" ? "fr-FR" : "fr-FR";
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(u);
+    // Appelle POST /api/tts → fallback navigateur (fr-FR) si non branché.
+    void ttsSpeak(text, lang);
   };
 
   const suggestions = useMemo(
