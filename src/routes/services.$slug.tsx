@@ -241,7 +241,7 @@ const DIFF_META: Record<Difficulty, { label: string; cls: string; dot: string }>
 };
 
 function ProcedurePage() {
-  const { proc } = Route.useLoaderData();
+  const { proc } = Route.useLoaderData() as { proc: ProcedureDetail };
   const diff = DIFF_META[proc.difficulty];
   const [playing, setPlaying] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
