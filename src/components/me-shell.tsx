@@ -12,14 +12,14 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/lib/auth";
 
-const NAV = [
+const NAV: { to: string; label: string; icon: typeof Home; exact?: boolean }[] = [
   { to: "/me", label: "Accueil", icon: Home, exact: true },
   { to: "/chat", label: "Assistant vocal", icon: Mic },
   { to: "/me/conversations", label: "Mes conversations", icon: MessageSquare },
   { to: "/me/procedures", label: "Mes démarches", icon: FileText },
   { to: "/me/favorites", label: "Favoris", icon: Star },
   { to: "/me/profile", label: "Mon profil", icon: UserIcon },
-] as const;
+];
 
 export function MeShell({
   title,
