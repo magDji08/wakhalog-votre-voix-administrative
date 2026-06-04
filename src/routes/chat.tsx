@@ -370,6 +370,12 @@ function ChatPage() {
               ))}
             </div>
             <Link
+              to="/me/conversations"
+              className="hidden items-center gap-2 text-sm text-muted-foreground hover:text-foreground md:inline-flex"
+            >
+              Mes conversations
+            </Link>
+            <Link
               to="/services"
               className="hidden items-center gap-2 text-sm text-muted-foreground hover:text-foreground md:inline-flex"
             >
