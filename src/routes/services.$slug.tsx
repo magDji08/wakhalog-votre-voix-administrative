@@ -478,6 +478,16 @@ function ProcedurePage() {
               <Send className="h-4 w-4" />
             </button>
           </div>
+
+          <div className="mt-3 flex justify-end">
+            <Link
+              to="/chat"
+              search={{ topic: proc.slug }}
+              className="inline-flex items-center gap-1.5 text-xs font-medium text-primary hover:underline"
+            >
+              Continuer dans Wakhalog →
+            </Link>
+          </div>
         </section>
 
         {/* 9. Sources */}
