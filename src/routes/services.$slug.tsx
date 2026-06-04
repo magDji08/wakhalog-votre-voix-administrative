@@ -1,5 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Mic,
   ArrowLeft,
@@ -21,7 +21,11 @@ import {
   Home as HomeIcon,
   Plane,
   FileText,
+  Star,
 } from "lucide-react";
+import { isFavorite, toggleFavorite, recordVisit } from "@/lib/citizen-store";
+
+
 
 type Difficulty = "easy" | "medium" | "hard";
 
@@ -247,7 +251,19 @@ function ProcedurePage() {
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const [chat, setChat] = useState<{ role: "user" | "bot"; text: string }[]>([]);
   const [input, setInput] = useState("");
+  const [fav, setFav] = useState(false);
   const utterRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  useEffect(() => {
+    setFav(isFavorite(proc.slug));
+    recordVisit({ slug: proc.slug, title: proc.title, category: proc.category });
+  }, [proc.slug]);
+
+  const onToggleFav = () => {
+    const now = toggleFavorite({ slug: proc.slug, title: proc.title, category: proc.category });
+    setFav(now);
+  };
+
 
   const toggleAudio = () => {
     if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
@@ -263,6 +279,7 @@ function ProcedurePage() {
     utterRef.current = u;
     window.speechSynthesis.speak(u);
     setPlaying(true);
+    recordVisit({ slug: proc.slug, title: proc.title, category: proc.category, listened: true });
   };
 
   const sendQuestion = () => {
@@ -290,9 +307,23 @@ function ProcedurePage() {
             </div>
             <span className="font-display text-xl font-bold">Wakhalog</span>
           </Link>
-          <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
-            <ArrowLeft className="h-4 w-4" /> Toutes les démarches
-          </Link>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={onToggleFav}
+              className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs transition ${
+                fav
+                  ? "border-accent bg-accent/10 text-accent"
+                  : "border-border bg-background text-muted-foreground hover:text-foreground"
+              }`}
+              title={fav ? "Retirer des favoris" : "Ajouter aux favoris"}
+            >
+              <Star className={`h-3.5 w-3.5 ${fav ? "fill-current" : ""}`} />
+              {fav ? "Favori" : "Ajouter aux favoris"}
+            </button>
+            <Link to="/services" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground">
+              <ArrowLeft className="h-4 w-4" /> Toutes les démarches
+            </Link>
+          </div>
         </div>
       </header>
 
