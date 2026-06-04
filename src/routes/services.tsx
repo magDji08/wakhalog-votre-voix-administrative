@@ -487,9 +487,22 @@ function ProcedureCard({ p }: { p: Procedure }) {
         <button className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground hover:opacity-90">
           <Volume2 className="h-3.5 w-3.5" /> Écouter un exemple
         </button>
-        <button className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20">
-          <BookOpen className="h-3.5 w-3.5" /> Voir la procédure
-        </button>
+        {p.slug ? (
+          <Link
+            to="/services/$slug"
+            params={{ slug: p.slug }}
+            className="inline-flex items-center gap-1.5 rounded-lg bg-primary/10 px-3 py-1.5 text-xs font-medium text-primary hover:bg-primary/20"
+          >
+            <BookOpen className="h-3.5 w-3.5" /> Voir la procédure
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="inline-flex cursor-not-allowed items-center gap-1.5 rounded-lg bg-muted px-3 py-1.5 text-xs font-medium text-muted-foreground"
+          >
+            <BookOpen className="h-3.5 w-3.5" /> Bientôt disponible
+          </button>
+        )}
         <button className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted">
           <Bot className="h-3.5 w-3.5" /> Poser une question à Wakhalog
         </button>
