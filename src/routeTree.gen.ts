@@ -25,6 +25,7 @@ import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as MeHistoryRouteImport } from './routes/me.history'
 import { Route as AuthOtpRouteImport } from './routes/auth.otp'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
+import { Route as ApiTtsRouteImport } from './routes/api/tts'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
@@ -106,6 +107,11 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
   path: '/auth/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ApiTtsRoute = ApiTtsRouteImport.update({
+  id: '/api/tts',
+  path: '/api/tts',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -120,6 +126,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRouteWithChildren
   '/settings': typeof SettingsRoute
   '/users': typeof UsersRoute
+  '/api/tts': typeof ApiTtsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
   '/me/history': typeof MeHistoryRoute
@@ -138,6 +145,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRouteWithChildren
   '/settings': typeof SettingsRoute
   '/users': typeof UsersRoute
+  '/api/tts': typeof ApiTtsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
   '/me/history': typeof MeHistoryRoute
@@ -157,6 +165,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRouteWithChildren
   '/settings': typeof SettingsRoute
   '/users': typeof UsersRoute
+  '/api/tts': typeof ApiTtsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
   '/me/history': typeof MeHistoryRoute
@@ -177,6 +186,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/settings'
     | '/users'
+    | '/api/tts'
     | '/auth/login'
     | '/auth/otp'
     | '/me/history'
@@ -195,6 +205,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/settings'
     | '/users'
+    | '/api/tts'
     | '/auth/login'
     | '/auth/otp'
     | '/me/history'
@@ -213,6 +224,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/settings'
     | '/users'
+    | '/api/tts'
     | '/auth/login'
     | '/auth/otp'
     | '/me/history'
@@ -232,6 +244,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRouteWithChildren
   SettingsRoute: typeof SettingsRoute
   UsersRoute: typeof UsersRoute
+  ApiTtsRoute: typeof ApiTtsRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthOtpRoute: typeof AuthOtpRoute
   MeHistoryRoute: typeof MeHistoryRoute
@@ -351,6 +364,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthLoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/api/tts': {
+      id: '/api/tts'
+      path: '/api/tts'
+      fullPath: '/api/tts'
+      preLoaderRoute: typeof ApiTtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -379,6 +399,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRouteWithChildren,
   SettingsRoute: SettingsRoute,
   UsersRoute: UsersRoute,
+  ApiTtsRoute: ApiTtsRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthOtpRoute: AuthOtpRoute,
   MeHistoryRoute: MeHistoryRoute,
@@ -386,13 +407,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
