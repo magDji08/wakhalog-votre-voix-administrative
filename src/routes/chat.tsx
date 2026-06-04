@@ -22,6 +22,7 @@ import {
   PanelRightOpen,
   Wand2,
 } from "lucide-react";
+import { useTTS } from "@/lib/use-tts";
 
 // ───────────────────────────────────────────────────────────
 // Search params
