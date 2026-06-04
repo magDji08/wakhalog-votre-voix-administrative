@@ -23,6 +23,13 @@ import {
   Wand2,
 } from "lucide-react";
 import { useTTS } from "@/lib/use-tts";
+import {
+  createConversation,
+  getConversation,
+  saveConversation,
+  recordVisit,
+  type Conversation,
+} from "@/lib/citizen-store";
 
 // ───────────────────────────────────────────────────────────
 // Search params
@@ -32,6 +39,7 @@ type ChatSearch = {
   voice?: 1 | 0;
   intent?: "discovery" | undefined;
   topic?: string;
+  c?: string; // conversation id (resume)
 };
 
 export const Route = createFileRoute("/chat")({
@@ -49,6 +57,7 @@ export const Route = createFileRoute("/chat")({
     voice: s.voice === "1" || s.voice === 1 ? 1 : undefined,
     intent: s.intent === "discovery" ? "discovery" : undefined,
     topic: typeof s.topic === "string" ? s.topic : undefined,
+    c: typeof s.c === "string" ? s.c : undefined,
   }),
   component: ChatPage,
 });
