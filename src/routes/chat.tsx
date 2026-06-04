@@ -374,6 +374,13 @@ function ChatPage() {
                   {s}
                 </button>
               ))}
+              <button
+                onClick={() => send("Je ne sais pas quelle démarche choisir")}
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3 py-1.5 text-xs font-medium text-accent transition hover:bg-accent/20"
+              >
+                <Mic className="h-3 w-3" />
+                Je ne sais pas quelle démarche choisir
+              </button>
             </div>
           )}
 
@@ -469,10 +476,10 @@ function MessageBubble({
       )}
       <div className={`max-w-[80%] ${isUser ? "items-end" : "items-start"} flex flex-col gap-1`}>
         <div
-          className={`whitespace-pre-wrap rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
+          className={`whitespace-pre-wrap px-4 py-2.5 text-sm leading-relaxed ${
             isUser
-              ? "bg-primary text-primary-foreground"
-              : "border border-border bg-background text-foreground"
+              ? "rounded-2xl rounded-tr-sm bg-primary text-primary-foreground"
+              : "rounded-2xl rounded-tl-sm border border-border/60 bg-muted text-foreground"
           }`}
         >
           {m.text}
@@ -502,7 +509,7 @@ function DebugChip({ d }: { d: DebugMeta }) {
   return (
     <details className="text-[10px] text-muted-foreground">
       <summary className="cursor-pointer rounded-md border border-dashed border-border px-2 py-0.5 hover:text-foreground">
-        IA · {d.intent} · {(d.confidence * 100).toFixed(0)}% · {d.latencyMs}ms
+        Confiance IA : {(d.confidence * 100).toFixed(0)}% · {d.latencyMs}ms
       </summary>
       <div className="mt-1.5 space-y-1 rounded-lg border border-border bg-muted/40 p-2.5 font-mono text-[10px]">
         {d.asr && (
