@@ -110,6 +110,7 @@ const PROCEDURES: Procedure[] = [
     estimated: "10 min",
   },
   {
+    slug: "certificat-residence",
     cat: "etat-civil",
     title: "Certificat de résidence",
     desc: "Atteste de votre lieu de résidence actuel.",
@@ -122,6 +123,7 @@ const PROCEDURES: Procedure[] = [
     estimated: "5 min",
   },
   {
+    slug: "cni",
     cat: "identite",
     title: "Carte nationale d'identité (CEDEAO)",
     desc: "Carte d'identité biométrique conforme aux normes CEDEAO.",
@@ -136,6 +138,7 @@ const PROCEDURES: Procedure[] = [
     related: ["Extrait de naissance", "Certificat de résidence"],
   },
   {
+    slug: "passeport",
     cat: "identite",
     title: "Passeport biométrique",
     desc: "Passeport biométrique sénégalais pour voyages internationaux.",
