@@ -18,9 +18,11 @@ import { Route as IntentsRouteImport } from './routes/intents'
 import { Route as DocumentsRouteImport } from './routes/documents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ConversationsRouteImport } from './routes/conversations'
+import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
+import { Route as MeHistoryRouteImport } from './routes/me.history'
 import { Route as AuthOtpRouteImport } from './routes/auth.otp'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 
@@ -69,6 +71,11 @@ const ConversationsRoute = ConversationsRouteImport.update({
   path: '/conversations',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChatRoute = ChatRouteImport.update({
+  id: '/chat',
+  path: '/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AnalyticsRoute = AnalyticsRouteImport.update({
   id: '/analytics',
   path: '/analytics',
@@ -84,6 +91,11 @@ const ServicesSlugRoute = ServicesSlugRouteImport.update({
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
 } as any)
+const MeHistoryRoute = MeHistoryRouteImport.update({
+  id: '/me/history',
+  path: '/me/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthOtpRoute = AuthOtpRouteImport.update({
   id: '/auth/otp',
   path: '/auth/otp',
@@ -98,6 +110,7 @@ const AuthLoginRoute = AuthLoginRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/chat': typeof ChatRoute
   '/conversations': typeof ConversationsRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
@@ -109,11 +122,13 @@ export interface FileRoutesByFullPath {
   '/users': typeof UsersRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
+  '/me/history': typeof MeHistoryRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/chat': typeof ChatRoute
   '/conversations': typeof ConversationsRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
@@ -125,12 +140,14 @@ export interface FileRoutesByTo {
   '/users': typeof UsersRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
+  '/me/history': typeof MeHistoryRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/analytics': typeof AnalyticsRoute
+  '/chat': typeof ChatRoute
   '/conversations': typeof ConversationsRoute
   '/dashboard': typeof DashboardRoute
   '/documents': typeof DocumentsRoute
@@ -142,6 +159,7 @@ export interface FileRoutesById {
   '/users': typeof UsersRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
+  '/me/history': typeof MeHistoryRoute
   '/services/$slug': typeof ServicesSlugRoute
 }
 export interface FileRouteTypes {
@@ -149,6 +167,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/analytics'
+    | '/chat'
     | '/conversations'
     | '/dashboard'
     | '/documents'
@@ -160,11 +179,13 @@ export interface FileRouteTypes {
     | '/users'
     | '/auth/login'
     | '/auth/otp'
+    | '/me/history'
     | '/services/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/analytics'
+    | '/chat'
     | '/conversations'
     | '/dashboard'
     | '/documents'
@@ -176,11 +197,13 @@ export interface FileRouteTypes {
     | '/users'
     | '/auth/login'
     | '/auth/otp'
+    | '/me/history'
     | '/services/$slug'
   id:
     | '__root__'
     | '/'
     | '/analytics'
+    | '/chat'
     | '/conversations'
     | '/dashboard'
     | '/documents'
@@ -192,12 +215,14 @@ export interface FileRouteTypes {
     | '/users'
     | '/auth/login'
     | '/auth/otp'
+    | '/me/history'
     | '/services/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AnalyticsRoute: typeof AnalyticsRoute
+  ChatRoute: typeof ChatRoute
   ConversationsRoute: typeof ConversationsRoute
   DashboardRoute: typeof DashboardRoute
   DocumentsRoute: typeof DocumentsRoute
@@ -209,6 +234,7 @@ export interface RootRouteChildren {
   UsersRoute: typeof UsersRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthOtpRoute: typeof AuthOtpRoute
+  MeHistoryRoute: typeof MeHistoryRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -276,6 +302,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ConversationsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chat': {
+      id: '/chat'
+      path: '/chat'
+      fullPath: '/chat'
+      preLoaderRoute: typeof ChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/analytics': {
       id: '/analytics'
       path: '/analytics'
@@ -296,6 +329,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/services/$slug'
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
+    }
+    '/me/history': {
+      id: '/me/history'
+      path: '/me/history'
+      fullPath: '/me/history'
+      preLoaderRoute: typeof MeHistoryRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/auth/otp': {
       id: '/auth/otp'
@@ -329,6 +369,7 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
+  ChatRoute: ChatRoute,
   ConversationsRoute: ConversationsRoute,
   DashboardRoute: DashboardRoute,
   DocumentsRoute: DocumentsRoute,
@@ -340,17 +381,8 @@ const rootRouteChildren: RootRouteChildren = {
   UsersRoute: UsersRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthOtpRoute: AuthOtpRoute,
+  MeHistoryRoute: MeHistoryRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

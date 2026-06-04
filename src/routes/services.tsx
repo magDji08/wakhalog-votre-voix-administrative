@@ -286,12 +286,13 @@ function ServicesPage() {
               placeholder="Rechercher une démarche (ex: naissance, passeport…)"
               className="flex-1 bg-transparent text-sm outline-none placeholder:text-muted-foreground"
             />
-            <button
-              type="button"
+            <Link
+              to="/chat"
+              search={{ voice: 1 }}
               className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground hover:opacity-90"
             >
               <Mic className="h-3.5 w-3.5" /> Parler
-            </button>
+            </Link>
           </div>
         </div>
       </section>
@@ -313,7 +314,8 @@ function ServicesPage() {
               </p>
             </div>
             <Link
-              to="/auth/login"
+              to="/chat"
+              search={{ intent: "discovery" }}
               className="inline-flex items-center justify-center gap-2 rounded-lg bg-background px-5 py-3 text-sm font-semibold text-primary shadow hover:opacity-90"
             >
               <Mic className="h-4 w-4" /> Commencer
@@ -416,7 +418,8 @@ function ServicesPage() {
             procédure et le bon interlocuteur.
           </p>
           <Link
-            to="/auth/login"
+            to="/chat"
+            search={{ voice: 1 }}
             className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-6 py-3 font-medium text-primary-foreground glow-primary transition hover:opacity-90"
           >
             <Mic className="h-4 w-4" /> Parler à Wakhalog
@@ -484,9 +487,13 @@ function ProcedureCard({ p }: { p: Procedure }) {
 
       {/* Actions */}
       <div className="mt-5 flex flex-wrap gap-2 pt-1">
-        <button className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground hover:opacity-90">
+        <Link
+          to="/chat"
+          search={p.slug ? { topic: p.slug, voice: 1 } : { voice: 1 }}
+          className="inline-flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-medium text-accent-foreground hover:opacity-90"
+        >
           <Volume2 className="h-3.5 w-3.5" /> Écouter un exemple
-        </button>
+        </Link>
         {p.slug ? (
           <Link
             to="/services/$slug"
@@ -503,9 +510,13 @@ function ProcedureCard({ p }: { p: Procedure }) {
             <BookOpen className="h-3.5 w-3.5" /> Bientôt disponible
           </button>
         )}
-        <button className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted">
+        <Link
+          to="/chat"
+          search={p.slug ? { topic: p.slug } : {}}
+          className="inline-flex items-center gap-1.5 rounded-lg border border-border px-3 py-1.5 text-xs text-muted-foreground hover:bg-muted"
+        >
           <Bot className="h-3.5 w-3.5" /> Poser une question à Wakhalog
-        </button>
+        </Link>
       </div>
     </article>
   );
