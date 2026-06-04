@@ -183,7 +183,7 @@ function mockReply(q: string, topic?: TopicCtx): { text: string; debug: DebugMet
 // ───────────────────────────────────────────────────────────
 
 function ChatPage() {
-  const { voice, intent, topic } = Route.useSearch();
+  const { voice, intent, topic, c } = Route.useSearch();
   const topicCtx = topic ? TOPICS[topic] : undefined;
 
   const [lang, setLang] = useState<"fr" | "wo">("fr");
@@ -191,8 +191,44 @@ function ChatPage() {
   const [listening, setListening] = useState(false);
   const [debugOpen, setDebugOpen] = useState(false);
   const [contextOpen, setContextOpen] = useState(true);
+  const [conversationId, setConversationId] = useState<string | null>(null);
+  const [conversationTitle, setConversationTitle] = useState<string>("Nouvelle conversation");
   const [messages, setMessages] = useState<Message[]>(() => seedMessages(intent, topicCtx));
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  // Hydrate from existing conversation if ?c=<id>
+  useEffect(() => {
+    if (!c) return;
+    const existing = getConversation(c);
+    if (existing) {
+      setConversationId(existing.id);
+      setConversationTitle(existing.title);
+      if (existing.messages.length > 0) {
+        setMessages(
+          existing.messages.map((m) => ({
+            id: m.id,
+            role: m.role,
+            text: m.text,
+            lang: m.lang,
+            createdAt: m.createdAt,
+          })),
+        );
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Record procedure visit when arriving with a topic
+  useEffect(() => {
+    if (topicCtx) {
+      recordVisit({
+        slug: topicCtx.slug,
+        title: topicCtx.title,
+        category: topicCtx.category,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [topic]);
 
   // Auto scroll
   useEffect(() => {
@@ -205,19 +241,45 @@ function ChatPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Persist conversation in localStorage so /me/history works.
+  // Persist conversation. Creates one lazily on the first real user turn.
   useEffect(() => {
-    try {
-      const raw = localStorage.getItem("wakhalog_history");
-      const arr = raw ? (JSON.parse(raw) as Message[]) : [];
-      const lastSaved = arr[arr.length - 1]?.id;
-      const newOnes = messages.filter((m) => m.role === "bot" || m.role === "user");
-      if (newOnes.length && newOnes[newOnes.length - 1].id !== lastSaved) {
-        localStorage.setItem("wakhalog_history", JSON.stringify(messages));
-      }
-    } catch {
-      /* ignore */
+    const hasUser = messages.some((m) => m.role === "user");
+    if (!hasUser) return;
+    let id = conversationId;
+    let title = conversationTitle;
+    if (!id) {
+      const firstUser = messages.find((m) => m.role === "user");
+      title = topicCtx?.title ?? firstUser?.text.slice(0, 60) ?? "Nouvelle conversation";
+      const conv = createConversation({ topic: topicCtx?.slug, title });
+      id = conv.id;
+      setConversationId(id);
+      setConversationTitle(title);
     }
+    const conv: Conversation = {
+      id,
+      title,
+      topic: topicCtx?.slug,
+      messages: messages.map((m) => ({
+        id: m.id,
+        role: m.role,
+        text: m.text,
+        lang: m.lang,
+        createdAt: m.createdAt,
+      })),
+      createdAt: messages[0]?.createdAt ?? Date.now(),
+      updatedAt: Date.now(),
+    };
+    saveConversation(conv);
+    // Mark "asked" on the related procedure
+    if (topicCtx) {
+      recordVisit({
+        slug: topicCtx.slug,
+        title: topicCtx.title,
+        category: topicCtx.category,
+        asked: true,
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [messages]);
 
   const send = (raw?: string) => {
