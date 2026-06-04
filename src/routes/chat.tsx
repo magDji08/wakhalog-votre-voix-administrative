@@ -23,12 +23,6 @@ import {
   Wand2,
 } from "lucide-react";
 import { useTTS } from "@/lib/use-tts";
-import {
-  getConversation,
-  newConversationId,
-  saveConversation,
-  type Conversation,
-} from "@/lib/me-store";
 
 // ───────────────────────────────────────────────────────────
 // Search params
@@ -38,7 +32,6 @@ type ChatSearch = {
   voice?: 1 | 0;
   intent?: "discovery" | undefined;
   topic?: string;
-  c?: string;
 };
 
 export const Route = createFileRoute("/chat")({
@@ -56,7 +49,6 @@ export const Route = createFileRoute("/chat")({
     voice: s.voice === "1" || s.voice === 1 ? 1 : undefined,
     intent: s.intent === "discovery" ? "discovery" : undefined,
     topic: typeof s.topic === "string" ? s.topic : undefined,
-    c: typeof s.c === "string" ? s.c : undefined,
   }),
   component: ChatPage,
 });
@@ -182,7 +174,7 @@ function mockReply(q: string, topic?: TopicCtx): { text: string; debug: DebugMet
 // ───────────────────────────────────────────────────────────
 
 function ChatPage() {
-  const { voice, intent, topic, c } = Route.useSearch();
+  const { voice, intent, topic } = Route.useSearch();
   const topicCtx = topic ? TOPICS[topic] : undefined;
 
   const [lang, setLang] = useState<"fr" | "wo">("fr");
@@ -190,19 +182,7 @@ function ChatPage() {
   const [listening, setListening] = useState(false);
   const [debugOpen, setDebugOpen] = useState(false);
   const [contextOpen, setContextOpen] = useState(true);
-
-  // Stable conversation id for the whole page session.
-  const convIdRef = useRef<string>(c ?? newConversationId());
-
-  const [messages, setMessages] = useState<Message[]>(() => {
-    if (c) {
-      const existing = getConversation(c);
-      if (existing && existing.messages.length) {
-        return existing.messages as Message[];
-      }
-    }
-    return seedMessages(intent, topicCtx);
-  });
+  const [messages, setMessages] = useState<Message[]>(() => seedMessages(intent, topicCtx));
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // Auto scroll
@@ -216,27 +196,20 @@ function ChatPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Persist the conversation as soon as the citizen has sent at least one message.
+  // Persist conversation in localStorage so /me/history works.
   useEffect(() => {
-    const firstUser = messages.find((m) => m.role === "user");
-    if (!firstUser) return;
-    const title = topicCtx?.title ?? firstUser.text.slice(0, 60);
-    const conv: Conversation = {
-      id: convIdRef.current,
-      title,
-      topic: topicCtx?.slug,
-      createdAt: messages[0]?.createdAt ?? Date.now(),
-      updatedAt: Date.now(),
-      messages: messages as unknown as Conversation["messages"],
-    };
-    saveConversation(conv);
-    // Legacy flat history (kept for /me/history backward compatibility).
     try {
-      localStorage.setItem("wakhalog_history", JSON.stringify(messages));
+      const raw = localStorage.getItem("wakhalog_history");
+      const arr = raw ? (JSON.parse(raw) as Message[]) : [];
+      const lastSaved = arr[arr.length - 1]?.id;
+      const newOnes = messages.filter((m) => m.role === "bot" || m.role === "user");
+      if (newOnes.length && newOnes[newOnes.length - 1].id !== lastSaved) {
+        localStorage.setItem("wakhalog_history", JSON.stringify(messages));
+      }
     } catch {
       /* ignore */
     }
-  }, [messages, topicCtx]);
+  }, [messages]);
 
   const send = (raw?: string) => {
     const q = (raw ?? input).trim();

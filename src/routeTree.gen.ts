@@ -21,13 +21,8 @@ import { Route as ConversationsRouteImport } from './routes/conversations'
 import { Route as ChatRouteImport } from './routes/chat'
 import { Route as AnalyticsRouteImport } from './routes/analytics'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as MeIndexRouteImport } from './routes/me.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
-import { Route as MeProfileRouteImport } from './routes/me.profile'
-import { Route as MeProceduresRouteImport } from './routes/me.procedures'
 import { Route as MeHistoryRouteImport } from './routes/me.history'
-import { Route as MeFavoritesRouteImport } from './routes/me.favorites'
-import { Route as MeConversationsRouteImport } from './routes/me.conversations'
 import { Route as AuthOtpRouteImport } from './routes/auth.otp'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as ApiTtsRouteImport } from './routes/api/tts'
@@ -92,39 +87,14 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MeIndexRoute = MeIndexRouteImport.update({
-  id: '/me/',
-  path: '/me/',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const ServicesSlugRoute = ServicesSlugRouteImport.update({
   id: '/$slug',
   path: '/$slug',
   getParentRoute: () => ServicesRoute,
 } as any)
-const MeProfileRoute = MeProfileRouteImport.update({
-  id: '/me/profile',
-  path: '/me/profile',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeProceduresRoute = MeProceduresRouteImport.update({
-  id: '/me/procedures',
-  path: '/me/procedures',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MeHistoryRoute = MeHistoryRouteImport.update({
   id: '/me/history',
   path: '/me/history',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeFavoritesRoute = MeFavoritesRouteImport.update({
-  id: '/me/favorites',
-  path: '/me/favorites',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const MeConversationsRoute = MeConversationsRouteImport.update({
-  id: '/me/conversations',
-  path: '/me/conversations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthOtpRoute = AuthOtpRouteImport.update({
@@ -159,13 +129,8 @@ export interface FileRoutesByFullPath {
   '/api/tts': typeof ApiTtsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
-  '/me/conversations': typeof MeConversationsRoute
-  '/me/favorites': typeof MeFavoritesRoute
   '/me/history': typeof MeHistoryRoute
-  '/me/procedures': typeof MeProceduresRoute
-  '/me/profile': typeof MeProfileRoute
   '/services/$slug': typeof ServicesSlugRoute
-  '/me/': typeof MeIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -183,13 +148,8 @@ export interface FileRoutesByTo {
   '/api/tts': typeof ApiTtsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
-  '/me/conversations': typeof MeConversationsRoute
-  '/me/favorites': typeof MeFavoritesRoute
   '/me/history': typeof MeHistoryRoute
-  '/me/procedures': typeof MeProceduresRoute
-  '/me/profile': typeof MeProfileRoute
   '/services/$slug': typeof ServicesSlugRoute
-  '/me': typeof MeIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -208,13 +168,8 @@ export interface FileRoutesById {
   '/api/tts': typeof ApiTtsRoute
   '/auth/login': typeof AuthLoginRoute
   '/auth/otp': typeof AuthOtpRoute
-  '/me/conversations': typeof MeConversationsRoute
-  '/me/favorites': typeof MeFavoritesRoute
   '/me/history': typeof MeHistoryRoute
-  '/me/procedures': typeof MeProceduresRoute
-  '/me/profile': typeof MeProfileRoute
   '/services/$slug': typeof ServicesSlugRoute
-  '/me/': typeof MeIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -234,13 +189,8 @@ export interface FileRouteTypes {
     | '/api/tts'
     | '/auth/login'
     | '/auth/otp'
-    | '/me/conversations'
-    | '/me/favorites'
     | '/me/history'
-    | '/me/procedures'
-    | '/me/profile'
     | '/services/$slug'
-    | '/me/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -258,13 +208,8 @@ export interface FileRouteTypes {
     | '/api/tts'
     | '/auth/login'
     | '/auth/otp'
-    | '/me/conversations'
-    | '/me/favorites'
     | '/me/history'
-    | '/me/procedures'
-    | '/me/profile'
     | '/services/$slug'
-    | '/me'
   id:
     | '__root__'
     | '/'
@@ -282,13 +227,8 @@ export interface FileRouteTypes {
     | '/api/tts'
     | '/auth/login'
     | '/auth/otp'
-    | '/me/conversations'
-    | '/me/favorites'
     | '/me/history'
-    | '/me/procedures'
-    | '/me/profile'
     | '/services/$slug'
-    | '/me/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -307,12 +247,7 @@ export interface RootRouteChildren {
   ApiTtsRoute: typeof ApiTtsRoute
   AuthLoginRoute: typeof AuthLoginRoute
   AuthOtpRoute: typeof AuthOtpRoute
-  MeConversationsRoute: typeof MeConversationsRoute
-  MeFavoritesRoute: typeof MeFavoritesRoute
   MeHistoryRoute: typeof MeHistoryRoute
-  MeProceduresRoute: typeof MeProceduresRoute
-  MeProfileRoute: typeof MeProfileRoute
-  MeIndexRoute: typeof MeIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -401,13 +336,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/me/': {
-      id: '/me/'
-      path: '/me'
-      fullPath: '/me/'
-      preLoaderRoute: typeof MeIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/services/$slug': {
       id: '/services/$slug'
       path: '/$slug'
@@ -415,39 +343,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesSlugRouteImport
       parentRoute: typeof ServicesRoute
     }
-    '/me/profile': {
-      id: '/me/profile'
-      path: '/me/profile'
-      fullPath: '/me/profile'
-      preLoaderRoute: typeof MeProfileRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/me/procedures': {
-      id: '/me/procedures'
-      path: '/me/procedures'
-      fullPath: '/me/procedures'
-      preLoaderRoute: typeof MeProceduresRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/me/history': {
       id: '/me/history'
       path: '/me/history'
       fullPath: '/me/history'
       preLoaderRoute: typeof MeHistoryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/me/favorites': {
-      id: '/me/favorites'
-      path: '/me/favorites'
-      fullPath: '/me/favorites'
-      preLoaderRoute: typeof MeFavoritesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/me/conversations': {
-      id: '/me/conversations'
-      path: '/me/conversations'
-      fullPath: '/me/conversations'
-      preLoaderRoute: typeof MeConversationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/auth/otp': {
@@ -502,12 +402,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiTtsRoute: ApiTtsRoute,
   AuthLoginRoute: AuthLoginRoute,
   AuthOtpRoute: AuthOtpRoute,
-  MeConversationsRoute: MeConversationsRoute,
-  MeFavoritesRoute: MeFavoritesRoute,
   MeHistoryRoute: MeHistoryRoute,
-  MeProceduresRoute: MeProceduresRoute,
-  MeProfileRoute: MeProfileRoute,
-  MeIndexRoute: MeIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
