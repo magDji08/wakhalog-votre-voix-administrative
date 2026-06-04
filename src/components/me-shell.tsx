@@ -59,7 +59,7 @@ export function MeShell({
             return (
               <Link
                 key={item.to}
-                to={item.to}
+                to={item.to as never}
                 className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition ${
                   active
                     ? "bg-primary/10 font-semibold text-primary"
@@ -119,7 +119,7 @@ export function MeShell({
             return (
               <Link
                 key={item.to}
-                to={item.to}
+                to={item.to as never}
                 className={`inline-flex shrink-0 items-center gap-1.5 rounded-full px-3 py-1.5 text-xs transition ${
                   active
                     ? "bg-primary text-primary-foreground"
