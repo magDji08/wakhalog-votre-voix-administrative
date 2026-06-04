@@ -93,7 +93,6 @@ export function MeShell({
         <div className="px-3">
           <Link
             to="/chat"
-            search={{ voice: undefined, intent: undefined, topic: undefined, c: undefined } as never}
             className="flex w-full items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-primary to-accent px-3 py-2 text-sm font-medium text-primary-foreground shadow-sm hover:opacity-95"
           >
             <Plus className="h-4 w-4" /> Nouvelle conversation
@@ -104,7 +103,7 @@ export function MeShell({
           {NAV.map((n) => (
             <Link
               key={n.to}
-              to={n.to}
+              to={n.to as "/me"}
               className={`flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm transition ${
                 isActive(n.to, n.exact)
                   ? "bg-primary/10 text-foreground font-medium"
