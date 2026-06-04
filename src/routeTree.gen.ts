@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ServicesRouteImport } from './routes/services'
 import { Route as ModelsRouteImport } from './routes/models'
 import { Route as KnowledgeRouteImport } from './routes/knowledge'
 import { Route as IntentsRouteImport } from './routes/intents'
@@ -30,6 +31,11 @@ const UsersRoute = UsersRouteImport.update({
 const SettingsRoute = SettingsRouteImport.update({
   id: '/settings',
   path: '/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ServicesRoute = ServicesRouteImport.update({
+  id: '/services',
+  path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ModelsRoute = ModelsRouteImport.update({
@@ -92,6 +98,7 @@ export interface FileRoutesByFullPath {
   '/intents': typeof IntentsRoute
   '/knowledge': typeof KnowledgeRoute
   '/models': typeof ModelsRoute
+  '/services': typeof ServicesRoute
   '/settings': typeof SettingsRoute
   '/users': typeof UsersRoute
   '/auth/login': typeof AuthLoginRoute
@@ -106,6 +113,7 @@ export interface FileRoutesByTo {
   '/intents': typeof IntentsRoute
   '/knowledge': typeof KnowledgeRoute
   '/models': typeof ModelsRoute
+  '/services': typeof ServicesRoute
   '/settings': typeof SettingsRoute
   '/users': typeof UsersRoute
   '/auth/login': typeof AuthLoginRoute
@@ -121,6 +129,7 @@ export interface FileRoutesById {
   '/intents': typeof IntentsRoute
   '/knowledge': typeof KnowledgeRoute
   '/models': typeof ModelsRoute
+  '/services': typeof ServicesRoute
   '/settings': typeof SettingsRoute
   '/users': typeof UsersRoute
   '/auth/login': typeof AuthLoginRoute
@@ -137,6 +146,7 @@ export interface FileRouteTypes {
     | '/intents'
     | '/knowledge'
     | '/models'
+    | '/services'
     | '/settings'
     | '/users'
     | '/auth/login'
@@ -151,6 +161,7 @@ export interface FileRouteTypes {
     | '/intents'
     | '/knowledge'
     | '/models'
+    | '/services'
     | '/settings'
     | '/users'
     | '/auth/login'
@@ -165,6 +176,7 @@ export interface FileRouteTypes {
     | '/intents'
     | '/knowledge'
     | '/models'
+    | '/services'
     | '/settings'
     | '/users'
     | '/auth/login'
@@ -180,6 +192,7 @@ export interface RootRouteChildren {
   IntentsRoute: typeof IntentsRoute
   KnowledgeRoute: typeof KnowledgeRoute
   ModelsRoute: typeof ModelsRoute
+  ServicesRoute: typeof ServicesRoute
   SettingsRoute: typeof SettingsRoute
   UsersRoute: typeof UsersRoute
   AuthLoginRoute: typeof AuthLoginRoute
@@ -200,6 +213,13 @@ declare module '@tanstack/react-router' {
       path: '/settings'
       fullPath: '/settings'
       preLoaderRoute: typeof SettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/services': {
+      id: '/services'
+      path: '/services'
+      fullPath: '/services'
+      preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/models': {
@@ -284,6 +304,7 @@ const rootRouteChildren: RootRouteChildren = {
   IntentsRoute: IntentsRoute,
   KnowledgeRoute: KnowledgeRoute,
   ModelsRoute: ModelsRoute,
+  ServicesRoute: ServicesRoute,
   SettingsRoute: SettingsRoute,
   UsersRoute: UsersRoute,
   AuthLoginRoute: AuthLoginRoute,
@@ -292,13 +313,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
