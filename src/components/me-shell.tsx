@@ -23,14 +23,15 @@ import {
 } from "@/lib/citizen-store";
 import { useAuth } from "@/lib/auth";
 
-const NAV = [
+type NavItem = { to: string; label: string; icon: typeof Home; exact?: boolean };
+const NAV: NavItem[] = [
   { to: "/me", label: "Accueil", icon: Home, exact: true },
   { to: "/chat", label: "Assistant vocal", icon: Mic },
   { to: "/me/conversations", label: "Mes conversations", icon: MessageCircle },
   { to: "/me/procedures", label: "Mes démarches", icon: FileText },
   { to: "/me/favorites", label: "Favoris", icon: Star },
   { to: "/me/profile", label: "Profil", icon: UserIcon },
-] as const;
+];
 
 export function MeShell({
   title,
