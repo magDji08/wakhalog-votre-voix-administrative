@@ -54,6 +54,7 @@ const CATEGORIES = [
 ];
 
 type Procedure = {
+  slug?: string;
   cat: string;
   title: string;
   desc: string;
@@ -70,6 +71,7 @@ type Procedure = {
 
 const PROCEDURES: Procedure[] = [
   {
+    slug: "extrait-naissance",
     cat: "etat-civil",
     title: "Extrait de naissance",
     desc: "Document officiel attestant de la naissance d'une personne.",
