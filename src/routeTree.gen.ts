@@ -32,6 +32,14 @@ import { Route as AuthOtpRouteImport } from './routes/auth.otp'
 import { Route as AuthLoginRouteImport } from './routes/auth.login'
 import { Route as ApiTtsRouteImport } from './routes/api/tts'
 import { Route as MeConversationsIdRouteImport } from './routes/me.conversations.$id'
+import { Route as ApiPublicMobileTtsRouteImport } from './routes/api/public/mobile/tts'
+import { Route as ApiPublicMobileProceduresRouteImport } from './routes/api/public/mobile/procedures'
+import { Route as ApiPublicMobileHistoryRouteImport } from './routes/api/public/mobile/history'
+import { Route as ApiPublicMobileHealthRouteImport } from './routes/api/public/mobile/health'
+import { Route as ApiPublicMobileFavoritesRouteImport } from './routes/api/public/mobile/favorites'
+import { Route as ApiPublicMobileChatRouteImport } from './routes/api/public/mobile/chat'
+import { Route as ApiPublicMobileProceduresSlugRouteImport } from './routes/api/public/mobile/procedures.$slug'
+import { Route as ApiPublicMobileAuthOtpRouteImport } from './routes/api/public/mobile/auth.otp'
 
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
@@ -148,6 +156,49 @@ const MeConversationsIdRoute = MeConversationsIdRouteImport.update({
   path: '/$id',
   getParentRoute: () => MeConversationsRoute,
 } as any)
+const ApiPublicMobileTtsRoute = ApiPublicMobileTtsRouteImport.update({
+  id: '/api/public/mobile/tts',
+  path: '/api/public/mobile/tts',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMobileProceduresRoute =
+  ApiPublicMobileProceduresRouteImport.update({
+    id: '/api/public/mobile/procedures',
+    path: '/api/public/mobile/procedures',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicMobileHistoryRoute = ApiPublicMobileHistoryRouteImport.update({
+  id: '/api/public/mobile/history',
+  path: '/api/public/mobile/history',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMobileHealthRoute = ApiPublicMobileHealthRouteImport.update({
+  id: '/api/public/mobile/health',
+  path: '/api/public/mobile/health',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMobileFavoritesRoute =
+  ApiPublicMobileFavoritesRouteImport.update({
+    id: '/api/public/mobile/favorites',
+    path: '/api/public/mobile/favorites',
+    getParentRoute: () => rootRouteImport,
+  } as any)
+const ApiPublicMobileChatRoute = ApiPublicMobileChatRouteImport.update({
+  id: '/api/public/mobile/chat',
+  path: '/api/public/mobile/chat',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ApiPublicMobileProceduresSlugRoute =
+  ApiPublicMobileProceduresSlugRouteImport.update({
+    id: '/$slug',
+    path: '/$slug',
+    getParentRoute: () => ApiPublicMobileProceduresRoute,
+  } as any)
+const ApiPublicMobileAuthOtpRoute = ApiPublicMobileAuthOtpRouteImport.update({
+  id: '/api/public/mobile/auth/otp',
+  path: '/api/public/mobile/auth/otp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -173,6 +224,14 @@ export interface FileRoutesByFullPath {
   '/services/$slug': typeof ServicesSlugRoute
   '/me/': typeof MeIndexRoute
   '/me/conversations/$id': typeof MeConversationsIdRoute
+  '/api/public/mobile/chat': typeof ApiPublicMobileChatRoute
+  '/api/public/mobile/favorites': typeof ApiPublicMobileFavoritesRoute
+  '/api/public/mobile/health': typeof ApiPublicMobileHealthRoute
+  '/api/public/mobile/history': typeof ApiPublicMobileHistoryRoute
+  '/api/public/mobile/procedures': typeof ApiPublicMobileProceduresRouteWithChildren
+  '/api/public/mobile/tts': typeof ApiPublicMobileTtsRoute
+  '/api/public/mobile/auth/otp': typeof ApiPublicMobileAuthOtpRoute
+  '/api/public/mobile/procedures/$slug': typeof ApiPublicMobileProceduresSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -198,6 +257,14 @@ export interface FileRoutesByTo {
   '/services/$slug': typeof ServicesSlugRoute
   '/me': typeof MeIndexRoute
   '/me/conversations/$id': typeof MeConversationsIdRoute
+  '/api/public/mobile/chat': typeof ApiPublicMobileChatRoute
+  '/api/public/mobile/favorites': typeof ApiPublicMobileFavoritesRoute
+  '/api/public/mobile/health': typeof ApiPublicMobileHealthRoute
+  '/api/public/mobile/history': typeof ApiPublicMobileHistoryRoute
+  '/api/public/mobile/procedures': typeof ApiPublicMobileProceduresRouteWithChildren
+  '/api/public/mobile/tts': typeof ApiPublicMobileTtsRoute
+  '/api/public/mobile/auth/otp': typeof ApiPublicMobileAuthOtpRoute
+  '/api/public/mobile/procedures/$slug': typeof ApiPublicMobileProceduresSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -224,6 +291,14 @@ export interface FileRoutesById {
   '/services/$slug': typeof ServicesSlugRoute
   '/me/': typeof MeIndexRoute
   '/me/conversations/$id': typeof MeConversationsIdRoute
+  '/api/public/mobile/chat': typeof ApiPublicMobileChatRoute
+  '/api/public/mobile/favorites': typeof ApiPublicMobileFavoritesRoute
+  '/api/public/mobile/health': typeof ApiPublicMobileHealthRoute
+  '/api/public/mobile/history': typeof ApiPublicMobileHistoryRoute
+  '/api/public/mobile/procedures': typeof ApiPublicMobileProceduresRouteWithChildren
+  '/api/public/mobile/tts': typeof ApiPublicMobileTtsRoute
+  '/api/public/mobile/auth/otp': typeof ApiPublicMobileAuthOtpRoute
+  '/api/public/mobile/procedures/$slug': typeof ApiPublicMobileProceduresSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -251,6 +326,14 @@ export interface FileRouteTypes {
     | '/services/$slug'
     | '/me/'
     | '/me/conversations/$id'
+    | '/api/public/mobile/chat'
+    | '/api/public/mobile/favorites'
+    | '/api/public/mobile/health'
+    | '/api/public/mobile/history'
+    | '/api/public/mobile/procedures'
+    | '/api/public/mobile/tts'
+    | '/api/public/mobile/auth/otp'
+    | '/api/public/mobile/procedures/$slug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -276,6 +359,14 @@ export interface FileRouteTypes {
     | '/services/$slug'
     | '/me'
     | '/me/conversations/$id'
+    | '/api/public/mobile/chat'
+    | '/api/public/mobile/favorites'
+    | '/api/public/mobile/health'
+    | '/api/public/mobile/history'
+    | '/api/public/mobile/procedures'
+    | '/api/public/mobile/tts'
+    | '/api/public/mobile/auth/otp'
+    | '/api/public/mobile/procedures/$slug'
   id:
     | '__root__'
     | '/'
@@ -301,6 +392,14 @@ export interface FileRouteTypes {
     | '/services/$slug'
     | '/me/'
     | '/me/conversations/$id'
+    | '/api/public/mobile/chat'
+    | '/api/public/mobile/favorites'
+    | '/api/public/mobile/health'
+    | '/api/public/mobile/history'
+    | '/api/public/mobile/procedures'
+    | '/api/public/mobile/tts'
+    | '/api/public/mobile/auth/otp'
+    | '/api/public/mobile/procedures/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -325,6 +424,13 @@ export interface RootRouteChildren {
   MeProceduresRoute: typeof MeProceduresRoute
   MeProfileRoute: typeof MeProfileRoute
   MeIndexRoute: typeof MeIndexRoute
+  ApiPublicMobileChatRoute: typeof ApiPublicMobileChatRoute
+  ApiPublicMobileFavoritesRoute: typeof ApiPublicMobileFavoritesRoute
+  ApiPublicMobileHealthRoute: typeof ApiPublicMobileHealthRoute
+  ApiPublicMobileHistoryRoute: typeof ApiPublicMobileHistoryRoute
+  ApiPublicMobileProceduresRoute: typeof ApiPublicMobileProceduresRouteWithChildren
+  ApiPublicMobileTtsRoute: typeof ApiPublicMobileTtsRoute
+  ApiPublicMobileAuthOtpRoute: typeof ApiPublicMobileAuthOtpRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -490,6 +596,62 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeConversationsIdRouteImport
       parentRoute: typeof MeConversationsRoute
     }
+    '/api/public/mobile/tts': {
+      id: '/api/public/mobile/tts'
+      path: '/api/public/mobile/tts'
+      fullPath: '/api/public/mobile/tts'
+      preLoaderRoute: typeof ApiPublicMobileTtsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/mobile/procedures': {
+      id: '/api/public/mobile/procedures'
+      path: '/api/public/mobile/procedures'
+      fullPath: '/api/public/mobile/procedures'
+      preLoaderRoute: typeof ApiPublicMobileProceduresRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/mobile/history': {
+      id: '/api/public/mobile/history'
+      path: '/api/public/mobile/history'
+      fullPath: '/api/public/mobile/history'
+      preLoaderRoute: typeof ApiPublicMobileHistoryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/mobile/health': {
+      id: '/api/public/mobile/health'
+      path: '/api/public/mobile/health'
+      fullPath: '/api/public/mobile/health'
+      preLoaderRoute: typeof ApiPublicMobileHealthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/mobile/favorites': {
+      id: '/api/public/mobile/favorites'
+      path: '/api/public/mobile/favorites'
+      fullPath: '/api/public/mobile/favorites'
+      preLoaderRoute: typeof ApiPublicMobileFavoritesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/mobile/chat': {
+      id: '/api/public/mobile/chat'
+      path: '/api/public/mobile/chat'
+      fullPath: '/api/public/mobile/chat'
+      preLoaderRoute: typeof ApiPublicMobileChatRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/api/public/mobile/procedures/$slug': {
+      id: '/api/public/mobile/procedures/$slug'
+      path: '/$slug'
+      fullPath: '/api/public/mobile/procedures/$slug'
+      preLoaderRoute: typeof ApiPublicMobileProceduresSlugRouteImport
+      parentRoute: typeof ApiPublicMobileProceduresRoute
+    }
+    '/api/public/mobile/auth/otp': {
+      id: '/api/public/mobile/auth/otp'
+      path: '/api/public/mobile/auth/otp'
+      fullPath: '/api/public/mobile/auth/otp'
+      preLoaderRoute: typeof ApiPublicMobileAuthOtpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -517,6 +679,20 @@ const MeConversationsRouteWithChildren = MeConversationsRoute._addFileChildren(
   MeConversationsRouteChildren,
 )
 
+interface ApiPublicMobileProceduresRouteChildren {
+  ApiPublicMobileProceduresSlugRoute: typeof ApiPublicMobileProceduresSlugRoute
+}
+
+const ApiPublicMobileProceduresRouteChildren: ApiPublicMobileProceduresRouteChildren =
+  {
+    ApiPublicMobileProceduresSlugRoute: ApiPublicMobileProceduresSlugRoute,
+  }
+
+const ApiPublicMobileProceduresRouteWithChildren =
+  ApiPublicMobileProceduresRoute._addFileChildren(
+    ApiPublicMobileProceduresRouteChildren,
+  )
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AnalyticsRoute: AnalyticsRoute,
@@ -539,6 +715,13 @@ const rootRouteChildren: RootRouteChildren = {
   MeProceduresRoute: MeProceduresRoute,
   MeProfileRoute: MeProfileRoute,
   MeIndexRoute: MeIndexRoute,
+  ApiPublicMobileChatRoute: ApiPublicMobileChatRoute,
+  ApiPublicMobileFavoritesRoute: ApiPublicMobileFavoritesRoute,
+  ApiPublicMobileHealthRoute: ApiPublicMobileHealthRoute,
+  ApiPublicMobileHistoryRoute: ApiPublicMobileHistoryRoute,
+  ApiPublicMobileProceduresRoute: ApiPublicMobileProceduresRouteWithChildren,
+  ApiPublicMobileTtsRoute: ApiPublicMobileTtsRoute,
+  ApiPublicMobileAuthOtpRoute: ApiPublicMobileAuthOtpRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
